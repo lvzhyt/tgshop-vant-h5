@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { setToken, getToken, canTurnTo, setTitle } from '@/libs/util'
+import { getToken, canTurnTo } from '@/libs/util'
 
 Vue.use(Router);
 
 const LOGIN_PAGE_NAME = 'login'
-const HOME_PAGE_NAME = 'home'
 const ACCESS_ANON = "anon"
 
 const routes = [

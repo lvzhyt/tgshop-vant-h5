@@ -12,7 +12,9 @@
             <van-collapse-item title="标题1" name="1">
                 <van-cell v-for="item in routers" :title="item.title" :key="item.name" is-link :to="item.name" />
             </van-collapse-item>
-            <van-collapse-item title="标题2" name="2">内容</van-collapse-item>
+            <van-collapse-item title="标题2" name="2">
+                <van-button @click="logout">退出</van-button>
+            </van-collapse-item>
             <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
         </van-collapse>
     </div>
@@ -21,8 +23,9 @@
 <script>
     import { Search, Swipe, SwipeItem,Image} from 'vant';
     import { Collapse, CollapseItem } from 'vant';
-    import { List } from 'vant';
+    import { List,Toast } from 'vant';
     import { Cell, CellGroup } from 'vant';
+    import {setToken} from "../../libs/util";
     export default {
         name: "home.vue",
         components: {
@@ -69,6 +72,11 @@
                     }
                 }
                 this.$router.push(option)
+            },
+            logout() {
+                setToken('')
+                Toast('退出登录')
+                this.$router.push('home')
             }
         }
     }
