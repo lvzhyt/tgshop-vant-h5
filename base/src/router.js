@@ -36,6 +36,19 @@ const routes = [
     }
   },
   {
+    name: 'category',
+    component: () => import('./view/category'),
+    meta: {
+      title: '分类'
+    }
+  },{
+    name: 'find',
+    component: () => import('./view/find'),
+    meta: {
+      title: '发现'
+    }
+  },
+  {
     name: 'user',
     component: () => import('./view/user'),
     meta: {

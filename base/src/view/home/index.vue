@@ -16,14 +16,28 @@
                 <van-button @click="logout">退出</van-button>
             </van-collapse-item>
             <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
+            <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
+            <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
+            <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
+            <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
+            <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
+            <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
         </van-collapse>
+
+        <van-tabbar v-model="activeTab">
+            <van-tabbar-item name="home" to="/home" icon="wap-home">首页</van-tabbar-item>
+            <van-tabbar-item name="kind" to="/category" icon="apps-o">分类</van-tabbar-item>
+            <van-tabbar-item name="find" to="/find" icon="points">发现</van-tabbar-item>
+            <van-tabbar-item name="cart" to="/cart" icon="shopping-cart-o">购物车</van-tabbar-item>
+            <van-tabbar-item name="my-page" to="/user" icon="manager-o">我的</van-tabbar-item>
+        </van-tabbar>
     </div>
 </template>
 
 <script>
     import { Search, Swipe, SwipeItem,Image} from 'vant';
     import { Collapse, CollapseItem } from 'vant';
-    import { List,Toast } from 'vant';
+    import { List,Toast,Tabbar,TabbarItem } from 'vant';
     import { Cell, CellGroup } from 'vant';
     import {setToken} from "../../libs/util";
     export default {
@@ -37,6 +51,8 @@
             [CollapseItem.name]: CollapseItem,
             [Cell.name]: Cell,
             [CellGroup.name]: CellGroup,
+            [Tabbar.name]: Tabbar,
+            [TabbarItem.name]: TabbarItem,
             [List.name]: List
         },
         data() {
@@ -59,7 +75,8 @@
                         name: 'goods-list',
                         title: '商品列表'
                     }
-                ]
+                ],
+                activeTab: 'home'
             };
         },
         methods: {

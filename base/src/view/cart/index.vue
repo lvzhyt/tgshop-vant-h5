@@ -16,28 +16,39 @@
         />
       </van-checkbox>
     </van-checkbox-group>
-    <van-submit-bar
-      :price="totalPrice"
-      :disabled="!checkedGoods.length"
-      :button-text="submitBarText"
-      @submit="onSubmit"
+
+    <van-submit-bar style="bottom: 49px"
+                    :price="totalPrice"
+                    :disabled="!checkedGoods.length"
+                    :button-text="submitBarText"
+                    @submit="onSubmit"
     />
+    <van-tabbar v-model="activeTab">
+      <van-tabbar-item name="home" to="/home" icon="wap-home">首页</van-tabbar-item>
+      <van-tabbar-item name="kind" to="/category" icon="apps-o">分类</van-tabbar-item>
+      <van-tabbar-item name="find" to="/find" icon="points">发现</van-tabbar-item>
+      <van-tabbar-item name="cart" to="/cart" icon="shopping-cart-o">购物车</van-tabbar-item>
+      <van-tabbar-item name="my-page" to="/user" icon="manager-o">我的</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
 <script>
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast } from 'vant';
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast,Tabbar,TabbarItem } from 'vant';
 
 export default {
   components: {
     [Card.name]: Card,
     [Checkbox.name]: Checkbox,
     [SubmitBar.name]: SubmitBar,
+    [Tabbar.name]: Tabbar,
+    [TabbarItem.name]: TabbarItem,
     [CheckboxGroup.name]: CheckboxGroup
   },
 
   data() {
     return {
+      activeTab: 'cart',
       checkedGoods: ['1', '2', '3'],
       goods: [{
         id: '1',
