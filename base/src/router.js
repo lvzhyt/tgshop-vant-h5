@@ -21,6 +21,14 @@ const routes = [
     }
   },
   {
+    name: 'honey',
+    component: () => import('./view/honey'),
+    meta: {
+      title: 'honey',
+      access: ACCESS_ANON
+    }
+  },
+  {
     name: 'login',
     component: () => import('./view/login'),
     meta: {
@@ -63,8 +71,8 @@ const routes = [
     }
   },
   {
-    name: 'goods',
-    component: () => import('./view/goods'),
+    name: 'goods-detail',
+    component: () => import('./view/goods/goods-detail'),
     meta: {
       title: '商品详情'
     }

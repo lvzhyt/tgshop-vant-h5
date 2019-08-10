@@ -12,6 +12,7 @@
   "dependencies": {
     "i18n": "^0.8.3",
     "js-cookie": "^2.2.0",
+    "mockjs": "^1.0.1-beta3",
     "vant": "^2.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.5"

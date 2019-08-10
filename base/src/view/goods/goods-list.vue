@@ -64,9 +64,9 @@
 </template>
 
 <script>
-    import { NavBar,Icon,Search } from 'vant';
-    import { Row, Col } from 'vant';
+    import { Row, Col,NavBar,Icon,Search } from 'vant';
     import { Card,Tag,Button,List,Cell,Divider   } from 'vant';
+    import { searchGoodsApi } from '../../api/appApi';
 
     export default {
         name: "goods-list",
@@ -89,7 +89,12 @@
                 searchPlaceHolder: '请输入搜索关键词',
                 list: [],
                 loading: false,
-                finished: false
+                finished: false,
+                page: {
+                    pageNum: 0,
+                    pageSize: 10
+                },
+                sortField: ''
             }
         },
         methods:{
@@ -134,6 +139,24 @@
                         this.finished = true;
                     }
                 }, 500);
+            },
+            onLoadSearch(){
+              let data = {
+                  search: this.searchValue,
+                  pageNum: this.page.pageNum+1,
+                  pageSize: this.page.pageSize,
+                  sortField: this.sortField
+              }
+                searchGoodsApi(data).then(res=>{
+                    // 加载状态结束
+                    this.loading = false;
+                    this.pageNum = this.pageNum+1
+                    for (let i = 0; i < 10; i++) {
+                        this.list.push(this.list.length + 1);
+                    }
+                }).catch(err=>{
+                    this.loading = false;
+                })
             },
             onGoodsItemClick(item){
                 let option = {

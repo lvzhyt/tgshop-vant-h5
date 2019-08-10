@@ -1,14 +1,10 @@
 import {apiUrl} from './apiUrl'
 import axios from '@/libs/api.request'
 
-export const searchGoodsApi = (search,pageNum,pageSize) => {
+export const searchGoodsApi = (data) => {
     return axios.request({
         url: apiUrl.searchGoodsUrl,
-        params:{
-            search,
-            pageNum,
-            pageSize
-        },
+        params:data,
         method:'get'
     })
 }

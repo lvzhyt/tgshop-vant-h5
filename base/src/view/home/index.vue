@@ -9,7 +9,7 @@
 <!--        <img v-for="img in images" :src="img" >-->
 
         <van-collapse v-model="activeNames">
-            <van-collapse-item title="标题1" name="1">
+            <van-collapse-item title="路由" name="1">
                 <van-cell v-for="item in routers" :title="item.title" :key="item.name" is-link :to="item.name" />
             </van-collapse-item>
             <van-collapse-item title="标题2" name="2">
@@ -74,6 +74,10 @@
                     {
                         name: 'goods-list',
                         title: '商品列表'
+                    },
+                    {
+                        name: 'honey',
+                        title: 'honey'
                     }
                 ],
                 activeTab: 'home'
