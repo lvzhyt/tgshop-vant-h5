@@ -1,10 +1,8 @@
 import axios from 'axios'
-import store from '@/store'
 import { getToken } from '@/libs/util'
 import {errorLogUrl} from '@/api/apiUrl.js'
-// import qs from 'qs'
+import { saveErrorLogger } from '@/api/errorLog'
 
-// import { Spin } from 'iview'
 const addErrorLog = errorInfo => {
   const { statusText, status, request: { responseURL } } = errorInfo
   let info = {
@@ -13,7 +11,11 @@ const addErrorLog = errorInfo => {
     message: statusText,
     url: responseURL
   }
-  if (!responseURL.includes('save_error_logger')) store.dispatch('addErrorLog', info)
+  if (!responseURL.includes('save_error_logger')){
+    saveErrorLogger(info).then(() => {
+      console.log("saveErrorLogger ok.")
+    })
+  }
 }
 
 class HttpRequest {
@@ -41,13 +43,8 @@ class HttpRequest {
     instance.interceptors.request.use(config => {
       // 添加全局的loading...
       if (!Object.keys(this.queue).length) {
-        // Spin.show() // 不建议开启，因为界面不友好
       }
       this.queue[url] = true
-      // 使用application/x-www-form-urlencoded
-      // if (config.method === 'post') {
-      //   config.data = qs.stringify(config.data)
-      // }
       return config
     }, error => {
       return Promise.reject(error)

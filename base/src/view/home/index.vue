@@ -13,7 +13,7 @@
                 <van-cell v-for="item in routers" :title="item.title" :key="item.name" is-link :to="item.name" />
             </van-collapse-item>
             <van-collapse-item title="标题2" name="2">
-                <van-button @click="logout">退出</van-button>
+                <van-cell @click="logout">退出</van-cell>
             </van-collapse-item>
             <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
             <van-collapse-item title="标题3" name="3" disabled>内容</van-collapse-item>
@@ -38,8 +38,11 @@
     import { Search, Swipe, SwipeItem,Image} from 'vant';
     import { Collapse, CollapseItem } from 'vant';
     import { List,Toast,Tabbar,TabbarItem } from 'vant';
-    import { Cell, CellGroup } from 'vant';
-    import {setToken} from "../../libs/util";
+    import { Cell, CellGroup,Button } from 'vant';
+    import {setToken} from "@/libs/util";
+    import {logoutApi} from '../../api/user'
+    import {getToken} from "../../libs/util";
+
     export default {
         name: "home.vue",
         components: {
@@ -53,6 +56,7 @@
             [CellGroup.name]: CellGroup,
             [Tabbar.name]: Tabbar,
             [TabbarItem.name]: TabbarItem,
+            [Button.name]: Button,
             [List.name]: List
         },
         data() {
@@ -95,9 +99,14 @@
                 this.$router.push(option)
             },
             logout() {
-                setToken('')
-                Toast('退出登录')
-                this.$router.push('home')
+                let token = getToken()
+                logoutApi(token).then(res=>{
+                    console.log(res)
+                    setToken('')
+                    Toast('退出登录')
+                    this.$router.push('home')
+                })
+
             }
         }
     }

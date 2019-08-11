@@ -62,7 +62,7 @@
         },
         data() {
             return {
-                username: '',
+                userName: '',
                 password: '',
                 phone: '',
                 sms: '',

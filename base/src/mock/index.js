@@ -12,6 +12,9 @@ Mock.setup({
 Mock.mock(/\/login/, login)
 Mock.mock(/\/get_info/, getUserInfo)
 Mock.mock(/\/logout/, logout)
+// 搜索商品
+
+
 // Mock.mock(/\/get_table_data/, getTableData)
 // Mock.mock(/\/get_drag_list/, getDragList)
 // Mock.mock(/\/save_error_logger/, 'success')

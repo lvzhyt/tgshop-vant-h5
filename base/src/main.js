@@ -3,6 +3,9 @@ import App from './App';
 import { router } from './router';
 import { Toast,Lazyload } from 'vant';
 
+// 实际打包时应该不引入mock
+/* eslint-disable */
+if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 Vue.use(Toast);
 Vue.use(Lazyload);

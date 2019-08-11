@@ -94,6 +94,7 @@ routes.forEach(route => {
 
 const router = new Router({ routes });
 
+//登录访问控制
 router.beforeEach((to, from, next) => {
   const title = to.meta && to.meta.title;
   const token = getToken()

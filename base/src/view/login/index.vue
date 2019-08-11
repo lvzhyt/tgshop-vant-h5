@@ -15,11 +15,12 @@
                 />
                 <van-cell-group>
                     <van-field
-                            v-model="username"
+                            v-model="userName"
                             label="用户名"
                             placeholder="请输入用户名/手机号"
                     />
                     <van-field
+                            type="password"
                             v-model="password"
                             label="密码"
                             placeholder="请输入密码"
@@ -37,6 +38,7 @@
 
     import { setToken } from '@/libs/util'
     import { NavBar,Icon,Row,Col,Field,CellGroup,Button,Image } from 'vant';
+    import {loginApi} from "../../api/user";
 
     export default {
         name: "login",
@@ -52,10 +54,8 @@
         },
         data() {
             return {
-                username: '',
+                userName: '',
                 password: '',
-                phone: '',
-                sms: '',
                 errorMessage: ''
             }
         },
@@ -64,8 +64,15 @@
                 this.$router.go(-1);
             },
             login() {
-                setToken("token")
-                this.$router.go(-1);
+                let data = {
+                    userName: this.userName,
+                    password: this.password
+                }
+                loginApi(data).then(res=>{
+                    setToken("token")
+                    this.$router.go(-1);
+                })
+
             }
         }
     }
