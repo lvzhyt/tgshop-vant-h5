@@ -22,7 +22,7 @@
                 v-model="loading"
                 :finished="finished"
                 finished-text="没有更多了"
-                @load="onLoad"
+                @load="onLoadSearch"
         >
 
             <van-card
@@ -155,6 +155,7 @@
                         this.list.push(this.list.length + 1);
                     }
                 }).catch(err=>{
+                    // 加载状态结束
                     this.loading = false;
                 })
             },
@@ -171,6 +172,7 @@
         mounted() {
             if(this.$route.params.searchValue){
                 this.searchValue = this.$route.params.searchValue
+                this.onLoadSearch()
             }
             if(this.$route.params.searchPlaceHolder){
                 this.searchPlaceHolder = this.$route.params.searchPlaceHolder
