@@ -28,23 +28,28 @@
             <van-card
                     v-for="item in list"
                     class="goods-card"
-                    desc="描述信息"
-                    title="商品标题"
-                    thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
+                    :title="item.skuGoodsName"
+                    :thumb="item.specFacePictures"
                     @click="onGoodsItemClick(item)"
             >
-                <div slot="tags" class="goods-item-price">
-                    <span class="price-pre">￥</span>
-                    <span class="price-val">99</span>
-                    <span class="price-origin">￥199</span>
+                <div slot="tags" v-if="item.tags">
+                    <van-tag  v-for="tag in tags.split(',')" plain round type="danger" class="goods-item-tag">{{tag}}</van-tag>
                 </div>
-                <div slot="price" >
-                    <van-tag  type="danger" class="goods-item-tag">标签</van-tag>
-                    <van-tag plain type="danger"class="goods-item-tag">标签</van-tag>
+                <div slot="price" class="goods-item-price">
+                    <div v-if="item.promotePrice">
+                        <span class="price-pre">¥</span>
+                        <span class="price-val">{{item.promotePrice}}</span>
+                        <span class="price-origin">¥{{item.salePrice}}</span>
+                    </div>
+                    <div v-if="!item.promotePrice">
+                        <span class="price-pre">¥</span>
+                        <span class="price-val">{{item.salePrice}}</span>
+                    </div>
+
                 </div>
                 <div slot="bottom">
-                    <div class="goods-item-bottom">评价15672</div>
-                    <div class="goods-item-bottom">店铺</div>
+                    <div class="goods-item-bottom" v-if="item.commentNum">评价{{item.commentNum}}</div>
+                    <div class="goods-item-bottom">{{item.shopName}}</div>
                     <van-divider class = "goods-item-divider"/>
                 </div>
 <!--                <div slot="footer">-->
@@ -58,13 +63,13 @@
 
 
         <div>
-            goodsList
+
         </div>
     </div>
 </template>
 
 <script>
-    import { Row, Col,NavBar,Icon,Search } from 'vant';
+    import {Row, Col, NavBar, Icon, Search, Toast} from 'vant';
     import { Card,Tag,Button,List,Cell,Divider   } from 'vant';
     import { searchGoodsApi } from '../../api/appApi';
 
@@ -91,8 +96,10 @@
                 loading: false,
                 finished: false,
                 page: {
-                    pageNum: 0,
-                    pageSize: 10
+                    pageNum: -1,
+                    pageSize: 10,
+                    totalElements: 0,
+                    totalPages: 0
                 },
                 sortField: ''
             }
@@ -150,9 +157,21 @@
                 searchGoodsApi(data).then(res=>{
                     // 加载状态结束
                     this.loading = false;
-                    this.pageNum = this.pageNum+1
-                    for (let i = 0; i < 10; i++) {
-                        this.list.push(this.list.length + 1);
+                    const {result,message,data} = res.data
+                    if(result){
+                        this.page.pageNum = data.pageNum
+                        this.page.pageSize = data.pageSize
+                        this.page.totalElements = data.totalElements
+                        this.page.totalPages =  data.totalPages
+                        let dataArr = data.data
+                        for (let i = 0; i < dataArr.length; i++) {
+                            this.list.push(dataArr[i]);
+                        }
+                        if(this.page.pageNum===this.page.totalPages-1){
+                            this.finished = true;
+                        }
+                    }else {
+                        Toast(message)
                     }
                 }).catch(err=>{
                     // 加载状态结束
@@ -161,7 +180,7 @@
             },
             onGoodsItemClick(item){
                 let option = {
-                    name: 'goods',
+                    name: 'goods-detail',
                     params: {
                         skuId: item
                     }
@@ -172,11 +191,11 @@
         mounted() {
             if(this.$route.params.searchValue){
                 this.searchValue = this.$route.params.searchValue
-                this.onLoadSearch()
             }
             if(this.$route.params.searchPlaceHolder){
                 this.searchPlaceHolder = this.$route.params.searchPlaceHolder
             }
+            this.onLoadSearch()
         }
     }
 </script>

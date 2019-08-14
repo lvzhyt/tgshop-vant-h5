@@ -8,3 +8,13 @@ export const searchGoodsApi = (data) => {
         method:'get'
     })
 }
+
+export const getSkuByIdApi = (skuId) => {
+    return axios.request({
+        url: apiUrl.getSkuByIdUrl,
+        params:{skuId},
+        method:'get'
+    })
+}
+
+

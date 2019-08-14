@@ -16,6 +16,6 @@ export const apiUrl = {
   // 搜索商品
   searchGoodsUrl: '/search-api/es/searchGoods',
   // SKU商品详情
-  getSkuDetailUrl: '/product-api/sku/getSkuDetailBySkuId'
+  getSkuByIdUrl: '/search-api/es/getSkuById'
 
 }

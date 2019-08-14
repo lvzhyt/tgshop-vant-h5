@@ -1,4 +1,6 @@
 import { getParams } from '@/libs/util'
+import {searchGoodsData} from "../data/search_goods";
+import {skuDetail} from "../data/sku_detail";
 
 
 export const searchGoods = req => {
@@ -8,5 +10,10 @@ export const searchGoods = req => {
   const params = getParams(req.url)
   console.log('mock params '+ params)
   let reqBody = JSON.parse(req.body)
-  return {  }
+  return searchGoodsData
+}
+
+export const getSkuById = req => {
+  console.log('mock '+req.url)
+  return skuDetail
 }

@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 import { login, logout, getUserInfo } from './login'
-import { searchGoods } from './search'
+import {getSkuById, searchGoods} from './search'
 // import { getTableData, getDragList, uploadImage, getOrgData, getTreeSelectData } from './data'
 // import { getMessageInit, getContentByMsgId, hasRead, removeReaded, restoreTrash, messageCount } from './user'
 
@@ -15,6 +15,7 @@ Mock.mock(/\/get_info/, getUserInfo)
 Mock.mock(/\/logout/, logout)
 // 搜索商品
 Mock.mock(/\/searchGoods/, searchGoods)
+Mock.mock(/\/getSkuById/, getSkuById)
 
 // Mock.mock(/\/get_table_data/, getTableData)
 // Mock.mock(/\/get_drag_list/, getDragList)
