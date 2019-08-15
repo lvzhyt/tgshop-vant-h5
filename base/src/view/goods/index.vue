@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       skuId: '',
-      goods: {
+      skuItem: {
         title: '美国伽力果（约680g/3个）',
         price: 2680,
         express: '免运费',
@@ -95,7 +95,7 @@ export default {
 
   methods: {
     formatPrice() {
-      return '¥' + (this.goods.price / 100).toFixed(2);
+      return '¥' + (this.skuItem.price / 100).toFixed(2);
     },
 
     onClickCart() {

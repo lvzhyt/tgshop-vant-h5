@@ -50,7 +50,7 @@ export default {
     return {
       activeTab: 'cart',
       checkedGoods: ['1', '2', '3'],
-      goods: [{
+      skuItem: [{
         id: '1',
         title: '进口香蕉',
         desc: '约250g，2根',
@@ -82,7 +82,7 @@ export default {
     },
 
     totalPrice() {
-      return this.goods.reduce((total, item) => total + (this.checkedGoods.indexOf(item.id) !== -1 ? item.price : 0), 0);
+      return this.skuItem.reduce((total, item) => total + (this.checkedGoods.indexOf(item.id) !== -1 ? item.price : 0), 0);
     }
   },
 

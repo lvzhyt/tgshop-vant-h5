@@ -29,9 +29,8 @@ export const skuDetail = {
     "skuType": null,
     "skuStatus": 1,
     "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-    "pictureMain": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-    "pictureDescription": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
     "templateId": "0",
+    "expressFee": null,
     "volume": 0,
     "weight": 0,
     "itemSize": null,
@@ -46,8 +45,15 @@ export const skuDetail = {
     "saleNum": 0,
     "commentNum": 0,
     "advertAble": null,
-    "advertSortScore": null,
-    "tags": null
+    "tagList": [],
+    "pictureMainList": [
+      "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
+      "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+    ],
+    "pictureDescriptionList": [
+      "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
+      "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+    ]
   },
   "message": ""
 }
