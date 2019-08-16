@@ -17,12 +17,10 @@
         <div class="goods-price">{{ goodsPrice }}</div>
       </van-cell>
       <van-cell class="goods-express">
-<!--        <van-col span="10">运费：{{ skuItem.express }}</van-col>-->
-<!--        <van-col span="14">剩余：{{ skuItem.remain }}</van-col>-->
-        <van-col span="10">运费：{{expressFee}} </van-col>
+        <van-col >运费：{{expressFee}} </van-col>
       </van-cell>
-        <van-cell>
-            <div class="goods-title" @click="handSpecClick">已选：{{specInfo}}</div>
+        <van-cell class="goods-express" is-link>
+            <div @click="handChooseSpecClick">已选：{{specInfo}}</div>
         </van-cell>
     </van-cell-group>
 
@@ -33,17 +31,17 @@
 <!--          <van-tag class="skuItem-tag" type="danger">官方</van-tag>-->
         </template>
       </van-cell>
-      <van-cell title="线下门店" icon="location-o" is-link @click="sorry" />
+<!--      <van-cell title="线下门店" icon="location-o" is-link @click="sorry" />-->
     </van-cell-group>
 
     <van-cell-group class="goods-cell-group">
       <van-cell title="商品详情" />
-        <div class="detail-remark">remark</div>
+        <div class="detail-remark">{{skuItem.textDescription}}</div>
         <img class="img-detail" v-for="img in pictureDescriptionList" :key="img" v-lazy="img" >
     </van-cell-group>
 
       <van-sku
-              v-model="show"
+              v-model="specShow"
               :sku="sku"
               :goods="goods"
               :goods-id="goodsId"
@@ -94,7 +92,7 @@ import {
     NavBar,
     Sku
 } from 'vant';
-import {getSkuByIdApi} from "../../api/appApi";
+import {getSkuByIdApi,getChooseSkuApi} from "../../api/appApi";
 
 export default {
   components: {
@@ -141,7 +139,8 @@ export default {
         "advertAble": null,
         "tags": null
       },
-        show: false,
+        loadedChooseSku: false,
+        specShow: false,
         sku: {
             // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
             // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
@@ -152,7 +151,7 @@ export default {
                         {
                             id: '30349', // skuValueId：规格值 id
                             name: '红色', // skuValueName：规格值名称
-                            imgUrl: 'https://img.yzcdn.cn/1.jpg' // 规格类目图片，只有第一个规格类目可以定义图片
+                            imgUrl: 'https://img.yzcdn.cn/2.jpg' // 规格类目图片，只有第一个规格类目可以定义图片
                         },
                         {
                             id: '1215',
@@ -161,6 +160,22 @@ export default {
                         }
                     ],
                     k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+                },
+                {
+                    k: '尺码', // skuKeyName：规格类目名称
+                    v: [
+                        {
+                            id: '303491', // skuValueId：规格值 id
+                            name: 'X', // skuValueName：规格值名称
+                            imgUrl: '' // 规格类目图片，只有第一个规格类目可以定义图片
+                        },
+                        {
+                            id: '12151',
+                            name: 'XL',
+                            imgUrl: ''
+                        }
+                    ],
+                    k_s: 's2' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
                 }
             ],
             // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
@@ -168,8 +183,16 @@ export default {
                 {
                     id: 2259, // skuId，下单时后端需要
                     price: 100, // 价格（单位分）
+                    s1: '30349', // 规格类目 k_s 为 s1 的对应规格值 id
+                    s2: '303491', // 规格类目 k_s 为 s2 的对应规格值 id
+                    s3: '0', // 最多包含3个规格值，为0表示不存在该规格
+                    stock_num: 110 // 当前 sku 组合对应的库存
+                },
+                {
+                    id: 2259, // skuId，下单时后端需要
+                    price: 100, // 价格（单位分）
                     s1: '1215', // 规格类目 k_s 为 s1 的对应规格值 id
-                    s2: '1193', // 规格类目 k_s 为 s2 的对应规格值 id
+                    s2: '12151', // 规格类目 k_s 为 s2 的对应规格值 id
                     s3: '0', // 最多包含3个规格值，为0表示不存在该规格
                     stock_num: 110 // 当前 sku 组合对应的库存
                 }
@@ -177,17 +200,17 @@ export default {
             price: '1.00', // 默认价格（单位元）
             stock_num: 227, // 商品总库存
             collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-            none_sku: false, // 是否无规格商品
+            none_sku: true, // 是否无规格商品
             messages: [
-                {
-                    // 商品留言
-                    datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-                    multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-                    name: '留言', // 留言名称
-                    type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-                    required: '1', // 是否必填 '1' 表示必填
-                    placeholder: '' // 可选值，占位文本
-                }
+                // {
+                //     // 商品留言
+                //     datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
+                //     multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
+                //     name: '留言', // 留言名称
+                //     type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
+                //     required: '0', // 是否必填 '1' 表示必填
+                //     placeholder: '' // 可选值，占位文本
+                // }
             ],
             hide_stock: false // 是否隐藏剩余库存
         },
@@ -195,7 +218,7 @@ export default {
             // 商品标题
             title: '测试商品',
             // 默认商品 sku 缩略图
-            picture: 'https://img.yzcdn.cn/1.jpg'
+            picture: 'https://img.yzcdn.cn/2.jpg'
         },
         messageConfig: {
 
@@ -253,8 +276,18 @@ export default {
       onAddCartClicked(){
           Toast('暂无后续逻辑~');
       },
-      handSpecClick(){
-          this.show = true
+      handChooseSpecClick(){
+          this.specShow = true
+          if(!this.loadedChooseSku){
+              getChooseSkuApi(this.skuId).then(res=>{
+                  const {result,data} = res.data
+                  if(result){
+                      this.loadedChooseSku = true
+                      this.sku = data.sku
+                      this.goods = data.goods
+                  }
+              })
+          }
       }
   },
   mounted() {
@@ -265,6 +298,7 @@ export default {
       this.skuId='610570601907752960'
       this.getSkuDetail()
     }
+    this.loadedChooseSku = false
   }
 };
 </script>

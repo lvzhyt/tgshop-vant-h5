@@ -17,4 +17,17 @@ export const getSkuByIdApi = (skuId) => {
     })
 }
 
+/**
+ * 选择商品规格sku
+ * @param skuId
+ * @returns {*}
+ */
+export const getChooseSkuApi = (skuId) => {
+    return axios.request({
+        url: apiUrl.getChooseSkuUrl,
+        params:{skuId},
+        method:'get'
+    })
+}
+
 

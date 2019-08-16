@@ -46,6 +46,7 @@ export const skuDetail = {
     "commentNum": 0,
     "advertAble": null,
     "tagList": [],
+    "textDescription": "",
     "pictureMainList": [
       "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
       "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
