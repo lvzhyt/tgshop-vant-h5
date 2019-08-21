@@ -40,18 +40,26 @@
         <img class="img-detail" v-for="img in pictureDescriptionList" :key="img" v-lazy="img" >
     </van-cell-group>
 
-      <van-sku
-              v-model="specShow"
-              :sku="sku"
-              :goods="goods"
-              :goods-id="goodsId"
-              :quota="quota"
-              :quota-used="quotaUsed"
-              :hide-stock="sku.hide_stock"
-              :message-config="messageConfig"
-              @buy-clicked="onBuyClicked"
-              @add-cart="onAddCartClicked"
-      />
+    <van-sku
+            ref="sku"
+            v-model="specShow"
+            :sku="sku"
+            :goods="goods_info"
+            :goods-id="goods_id"
+            :hide-stock="hide_stock"
+            :quota="quota"
+            :quota-used="quota_used"
+            reset-stepper-on-hide
+            reset-selected-sku-on-hide
+            disable-stepper-input
+            :close-on-click-overlay="closeOnClickOverlay"
+            :message-config="messageConfig"
+            :initial-sku="initialSku"
+            :custom-sku-validator="customSkuValidator"
+            @sku-selected="onSkuSelected"
+            @buy-clicked="onBuyClicked"
+            @add-cart="onAddCartClicked"
+    />
 
     <van-goods-action v-if="this.skuItem.inventoryNum">
       <van-goods-action-icon icon="chat-o" @click="sorry">
@@ -60,10 +68,10 @@
       <van-goods-action-icon :info="cartNum" icon="cart-o" @click="onClickCart">
         购物车
       </van-goods-action-icon>
-      <van-goods-action-button round type="warning" @click="sorry">
+      <van-goods-action-button round type="warning" @click="onAddCartClicked">
         加入购物车
       </van-goods-action-button>
-      <van-goods-action-button round type="danger" @click="sorry">
+      <van-goods-action-button round type="danger" @click="onBuyClicked">
         立即购买
       </van-goods-action-button>
     </van-goods-action>
@@ -76,6 +84,7 @@
 </template>
 
 <script>
+  /* eslint-disable */
 import {
   Tag,
   Col,
@@ -93,6 +102,7 @@ import {
     Sku
 } from 'vant';
 import {getSkuByIdApi,getChooseSkuApi} from "../../api/appApi";
+import skuDataDemo from "../../data/skuDataDemo";
 
 export default {
   components: {
@@ -114,9 +124,39 @@ export default {
   data() {
     return {
       skuId: '',
-        pictureMainList: [],
-        pictureDescriptionList: [],
-        tagList: [],
+      // 规格选择数据
+      skuDataCache: {},
+      specShow: false,
+      sku: {},
+      hide_stock: false,
+      goods_info: {},
+      goods_id: '',
+      quota: 0,
+      quota_used:0,
+      // sku规格加载标记
+      loadedChooseSku: false,
+      closeOnClickOverlay: true,
+      messageConfig: {
+        uploadImg: (file, img) => new Promise(resolve => {
+          setTimeout(() => resolve(img), 1000);
+        }),
+        uploadMaxSize: 3
+      },
+      customSkuValidator: () => '请选择规格',
+
+      showCustom: false,
+      showStepper: false,
+      showSoldOut: false,
+      // 初始选择
+      initialSku: {
+        s1: '',
+        s2: '',
+        selectedNum: 1
+      },
+
+      pictureMainList: [],
+      pictureDescriptionList: [],
+      tagList: [],
       cartNum: 1,
       skuItem: {
         "skuId": "",
@@ -137,95 +177,12 @@ export default {
         "saleNum": 0,
         "commentNum": 0,
         "advertAble": null,
-        "tags": null
-      },
-        loadedChooseSku: false,
-        specShow: false,
-        sku: {
-            // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
-            // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
-            tree: [
-                {
-                    k: '颜色', // skuKeyName：规格类目名称
-                    v: [
-                        {
-                            id: '30349', // skuValueId：规格值 id
-                            name: '红色', // skuValueName：规格值名称
-                            imgUrl: 'https://img.yzcdn.cn/2.jpg' // 规格类目图片，只有第一个规格类目可以定义图片
-                        },
-                        {
-                            id: '1215',
-                            name: '蓝色',
-                            imgUrl: 'https://img.yzcdn.cn/2.jpg'
-                        }
-                    ],
-                    k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-                },
-                {
-                    k: '尺码', // skuKeyName：规格类目名称
-                    v: [
-                        {
-                            id: '303491', // skuValueId：规格值 id
-                            name: 'X', // skuValueName：规格值名称
-                            imgUrl: '' // 规格类目图片，只有第一个规格类目可以定义图片
-                        },
-                        {
-                            id: '12151',
-                            name: 'XL',
-                            imgUrl: ''
-                        }
-                    ],
-                    k_s: 's2' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-                }
-            ],
-            // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
-            list: [
-                {
-                    id: 2259, // skuId，下单时后端需要
-                    price: 100, // 价格（单位分）
-                    s1: '30349', // 规格类目 k_s 为 s1 的对应规格值 id
-                    s2: '303491', // 规格类目 k_s 为 s2 的对应规格值 id
-                    s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                    stock_num: 110 // 当前 sku 组合对应的库存
-                },
-                {
-                    id: 2259, // skuId，下单时后端需要
-                    price: 100, // 价格（单位分）
-                    s1: '1215', // 规格类目 k_s 为 s1 的对应规格值 id
-                    s2: '12151', // 规格类目 k_s 为 s2 的对应规格值 id
-                    s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                    stock_num: 110 // 当前 sku 组合对应的库存
-                }
-            ],
-            price: '1.00', // 默认价格（单位元）
-            stock_num: 227, // 商品总库存
-            collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-            none_sku: true, // 是否无规格商品
-            messages: [
-                // {
-                //     // 商品留言
-                //     datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-                //     multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-                //     name: '留言', // 留言名称
-                //     type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-                //     required: '0', // 是否必填 '1' 表示必填
-                //     placeholder: '' // 可选值，占位文本
-                // }
-            ],
-            hide_stock: false // 是否隐藏剩余库存
-        },
-        goods: {
-            // 商品标题
-            title: '测试商品',
-            // 默认商品 sku 缩略图
-            picture: 'https://img.yzcdn.cn/2.jpg'
-        },
-        messageConfig: {
-
-        },
-        goodsId: '',
-        quota: 0,
-        quotaUsed: 0
+        "tags": null,
+        "colorAttrValId": '0',
+        "colorAttrValName": "蜜语红",
+        "sizeAttrValId": '0',
+        "sizeAttrValName": "8+128G"
+      }
 
     };
   },
@@ -239,7 +196,13 @@ export default {
       return this.skuItem.expressFee?'¥'+this.skuItem.expressFee:'包邮'
     },
       specInfo (){
-          let info =  this.skuItem.colorAttrValName  + ' '+ this.skuItem.sizeAttrValName
+        let info = '';
+        if(this.skuItem && this.skuItem.colorAttrValName){
+          info =  this.skuItem.colorAttrValName
+        }
+        if(this.skuItem && this.skuItem.sizeAttrValName){
+          info = info + ' '+ this.skuItem.sizeAttrValName
+        }
           return info
       }
   },
@@ -256,49 +219,87 @@ export default {
     },
 
     sorry() {
-      Toast('暂无后续逻辑~');
+        this.$toast('暂无后续逻辑~')
+    },
+    // 选择规格
+    onSkuSelected(data) {
+
+        console.log("selected sku:",data.selectedSkuComb)
+      if(data.selectedSkuComb){
+        this.skuId = data.selectedSkuComb.id
+        this.getSkuDetail()
+      }
     },
 
     getSkuDetail(){
-      getSkuByIdApi(this.skuId).then(res=>{
-        const {result,data} = res.data
-        if(result){
-          this.skuItem = data
-          this.pictureMainList = data.pictureMainList
-            this.pictureDescriptionList=data.pictureDescriptionList
-            this.tagList = data.tagList
+        if(!this.skuId){
+          return
         }
-      })
+        if(this.skuDataCache[this.skuId]){
+          let data = this.skuDataCache[this.skuId]
+          console.log('getSkuDetail',data)
+          this.resetSkuItemData(data)
+        }else {
+          getSkuByIdApi(this.skuId).then(res=>{
+            const {result,data} = res.data
+            if(result){
+              this.skuDataCache[this.skuId] = this.skuItem
+              this.resetSkuItemData(data)
+            }
+          })
+        }
     },
-      onBuyClicked(){
-          Toast('暂无后续逻辑~');
-      },
-      onAddCartClicked(){
-          Toast('暂无后续逻辑~');
-      },
+    resetSkuItemData(data){
+      this.skuItem = data
+
+      this.pictureMainList = data.pictureMainList
+      this.pictureDescriptionList=data.pictureDescriptionList
+      this.tagList = data.tagList
+      this.initialSku.s1 = data.colorAttrValId
+      this.initialSku.s2 = data.sizeAttrValId
+    },
+    onBuyClicked(data) {
+      this.$toast('buy:' + JSON.stringify(data));
+    },
+
+    onAddCartClicked(data) {
+      this.$toast('add cart:' + JSON.stringify(data));
+    },
+    onAddCartClicked(){
+        Toast('暂无后续逻辑~');
+    },
+      // 选择规格
       handChooseSpecClick(){
           this.specShow = true
-          if(!this.loadedChooseSku){
-              getChooseSkuApi(this.skuId).then(res=>{
-                  const {result,data} = res.data
-                  if(result){
-                      this.loadedChooseSku = true
-                      this.sku = data.sku
-                      this.goods = data.goods
-                  }
-              })
-          }
-      }
+      },
+    // 加载选择的规格
+    loadSkuSpecData(){
+      getChooseSkuApi(this.skuId).then(res=>{
+        const {result,data} = res.data
+        if(result){
+          this.loadedChooseSku = true
+          this.sku = data.sku
+          this.goods_info = data.goods_info
+          this.goods_id = data.goods_id
+          this.initialSku = data.initialSku
+          console.log(data)
+          console.log(skuDataDemo)
+        }
+      })
+    }
   },
   mounted() {
     if(this.$route.params.skuId){
       this.skuId = this.$route.params.skuId
       this.getSkuDetail()
+      this.loadSkuSpecData()
     }else {
       this.skuId='610570601907752960'
       this.getSkuDetail()
+      this.loadSkuSpecData()
     }
-    this.loadedChooseSku = false
+
+
   }
 };
 </script>

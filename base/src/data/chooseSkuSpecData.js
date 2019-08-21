@@ -2,9 +2,13 @@ export  const chooseSkuSpecData = {
   "result": 1,
   "code": "0000",
   "data": {
-    "goods": {
+    "goods_id": "610570588452425728",
+    "quota": 0,
+    "quota_used": 0,
+    "goods_info": {
       "title": "其他 nova5i 手机 苏音蓝 8+128G",
-      "picture": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+      "picture": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg",
+      "price": 2199
     },
     "sku": {
       "collection_id": "610570588452425728",
@@ -102,6 +106,11 @@ export  const chooseSkuSpecData = {
       ],
       "message": [],
       "hide_stock": false
+    },
+    "initialSku": {
+      "s1": '610570478867845120',
+      "s2": '610570554570838016',
+      "selectedNum": 1
     }
   },
   "message": ""

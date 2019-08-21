@@ -1,8 +1,8 @@
 import { getParams } from '@/libs/util'
 import {searchGoodsData} from "../data/search_goods";
-import {skuDetail} from "../data/sku_detail";
+import {skuDetails} from "../data/sku_detail";
 
-
+/* eslint-disable */
 export const searchGoods = req => {
   console.log('mock '+req.url)
   console.log('mock '+req)
@@ -15,5 +15,9 @@ export const searchGoods = req => {
 
 export const getSkuById = req => {
   console.log('mock '+req.url)
-  return skuDetail
+  const params = getParams(req.url)
+  let skuId = params.skuId
+  let data = skuDetails[skuId]
+  console.log(data)
+  return data
 }
