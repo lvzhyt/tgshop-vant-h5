@@ -6,6 +6,7 @@ Vue.use(Router);
 
 const LOGIN_PAGE_NAME = 'login'
 const ACCESS_ANON = "anon"
+const ACCESS_AUTH = "auth"
 
 const routes = [
   {
@@ -83,6 +84,14 @@ const routes = [
     meta: {
       title: '商品列表',
       access: ACCESS_ANON
+    }
+  },
+  {
+    name: 'order_confirm',
+    component: () => import('./view/trade/order_confirm'),
+    meta: {
+      title: '填写订单',
+      access: ACCESS_AUTH
     }
   }
 ];

@@ -82,6 +82,10 @@
                     {
                         name: 'honey',
                         title: 'honey'
+                    },
+                    {
+                        name: 'order_confirm',
+                        title: '确认订单'
                     }
                 ],
                 activeTab: 'home'
@@ -101,7 +105,8 @@
             logout() {
                 let token = getToken()
                 logoutApi(token).then(res=>{
-                    console.log(res)
+                    // eslint-disable-next-line
+                    let token = res
                     setToken('')
                     Toast('退出登录')
                     this.$router.push('home')

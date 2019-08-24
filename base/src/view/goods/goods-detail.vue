@@ -181,7 +181,8 @@ export default {
         "colorAttrValId": '0',
         "colorAttrValName": "蜜语红",
         "sizeAttrValId": '0',
-        "sizeAttrValName": "8+128G"
+        "sizeAttrValName": "8+128G",
+        "textDescription": ''
       }
 
     };
@@ -243,7 +244,10 @@ export default {
           getSkuByIdApi(this.skuId).then(res=>{
             const {result,data} = res.data
             if(result){
-              this.skuDataCache[this.skuId] = this.skuItem
+              console.log(this.skuDataCache)
+              this.skuItem = data
+              this.skuDataCache[this.skuId] = data
+              console.log(this.skuDataCache)
               this.resetSkuItemData(data)
             }
           })
@@ -257,6 +261,7 @@ export default {
       this.tagList = data.tagList
       this.initialSku.s1 = data.colorAttrValId
       this.initialSku.s2 = data.sizeAttrValId
+      console.log("initialSku",this.initialSku)
     },
     onBuyClicked(data) {
       this.$toast('buy:' + JSON.stringify(data));
@@ -289,15 +294,17 @@ export default {
     }
   },
   mounted() {
+
     if(this.$route.params.skuId){
       this.skuId = this.$route.params.skuId
       this.getSkuDetail()
       this.loadSkuSpecData()
     }else {
       this.skuId='610570601907752960'
-      this.getSkuDetail()
-      this.loadSkuSpecData()
     }
+    this.skuDataCache = {}
+    this.getSkuDetail()
+    this.loadSkuSpecData()
 
 
   }

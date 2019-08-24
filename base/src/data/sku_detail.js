@@ -20,8 +20,8 @@ export const skuDetails = {
       "sellerId": "568045142133575680",
       "storeId": null,
       "areaId": null,
-      "skuGoodsName": "其他 nova5i 手机 蜜语红 8+128G",
-      "skuNo": "610570601907752961",
+      "skuGoodsName": "其他 nova5i 手机 苏音蓝 8+128G",
+      "skuNo": "610570588452425729",
       "attrValueJson": null,
       "colorAttrValId": "610570421250691072",
       "colorAttrValName": "苏音蓝",
@@ -29,7 +29,7 @@ export const skuDetails = {
       "sizeAttrValName": "8+128G",
       "skuType": null,
       "skuStatus": 1,
-      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
+      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg",
       "templateId": "0",
       "expressFee": null,
       "volume": 0,
@@ -47,13 +47,11 @@ export const skuDetails = {
       "commentNum": 0,
       "advertAble": null,
       "tagList": [],
-      "textDescription": "",
       "pictureMainList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d3a6e2.png"
       ],
       "pictureDescriptionList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d3a6e2.png"
       ]
     },
     "message": ""
@@ -79,8 +77,8 @@ export const skuDetails = {
       "sellerId": "568045142133575680",
       "storeId": null,
       "areaId": null,
-      "skuGoodsName": "其他 nova5i 手机 蜜语红 8+128G",
-      "skuNo": "610570601907752961",
+      "skuGoodsName": "其他 nova5i 手机 苏音蓝 6+128G",
+      "skuNo": "610570588456620033",
       "attrValueJson": null,
       "colorAttrValId": "610570421250691072",
       "colorAttrValName": "苏音蓝",
@@ -88,7 +86,7 @@ export const skuDetails = {
       "sizeAttrValName": "6+128G",
       "skuType": null,
       "skuStatus": 1,
-      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
+      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg",
       "templateId": "0",
       "expressFee": null,
       "volume": 0,
@@ -106,13 +104,11 @@ export const skuDetails = {
       "commentNum": 0,
       "advertAble": null,
       "tagList": [],
-      "textDescription": "",
       "pictureMainList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d3a6e2.png"
       ],
       "pictureDescriptionList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d3a6e2.png"
       ]
     },
     "message": ""
@@ -138,8 +134,8 @@ export const skuDetails = {
       "sellerId": "568045142133575680",
       "storeId": null,
       "areaId": null,
-      "skuGoodsName": "其他 nova5i 手机 蜜语红 8+128G",
-      "skuNo": "610570601907752961",
+      "skuGoodsName": "其他 nova5i 手机 幻夜黑 8+128G",
+      "skuNo": "610570595754708993",
       "attrValueJson": null,
       "colorAttrValId": "610570455585263616",
       "colorAttrValName": "幻夜黑",
@@ -147,7 +143,7 @@ export const skuDetails = {
       "sizeAttrValName": "8+128G",
       "skuType": null,
       "skuStatus": 1,
-      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
+      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4499c.jpg",
       "templateId": "0",
       "expressFee": null,
       "volume": 0,
@@ -165,14 +161,11 @@ export const skuDetails = {
       "commentNum": 0,
       "advertAble": null,
       "tagList": [],
-      "textDescription": "",
       "pictureMainList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d482be.png"
       ],
       "pictureDescriptionList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d482be.png"
       ]
     },
     "message": ""
@@ -198,8 +191,8 @@ export const skuDetails = {
       "sellerId": "568045142133575680",
       "storeId": null,
       "areaId": null,
-      "skuGoodsName": "其他 nova5i 手机 蜜语红 8+128G",
-      "skuNo": "610570601907752961",
+      "skuGoodsName": "其他 nova5i 手机 幻夜黑 6+128G",
+      "skuNo": "610570595763097601",
       "attrValueJson": null,
       "colorAttrValId": "610570455585263616",
       "colorAttrValName": "幻夜黑",
@@ -207,7 +200,7 @@ export const skuDetails = {
       "sizeAttrValName": "6+128G",
       "skuType": null,
       "skuStatus": 1,
-      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
+      "specFacePictures": "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4499c.jpg",
       "templateId": "0",
       "expressFee": null,
       "volume": 0,
@@ -225,14 +218,11 @@ export const skuDetails = {
       "commentNum": 0,
       "advertAble": null,
       "tagList": [],
-      "textDescription": "",
       "pictureMainList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d482be.png"
       ],
       "pictureDescriptionList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d482be.png"
       ]
     },
     "message": ""
@@ -285,14 +275,11 @@ export const skuDetails = {
       "commentNum": 0,
       "advertAble": null,
       "tagList": [],
-      "textDescription": "",
       "pictureMainList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg"
       ],
       "pictureDescriptionList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg"
       ]
     },
     "message": ""
@@ -318,8 +305,8 @@ export const skuDetails = {
       "sellerId": "568045142133575680",
       "storeId": null,
       "areaId": null,
-      "skuGoodsName": "其他 nova5i 手机 蜜语红 8+128G",
-      "skuNo": "610570601907752961",
+      "skuGoodsName": "其他 nova5i 手机 蜜语红 6+128G",
+      "skuNo": "610570601911947265",
       "attrValueJson": null,
       "colorAttrValId": "610570478867845120",
       "colorAttrValName": "蜜语红",
@@ -345,16 +332,13 @@ export const skuDetails = {
       "commentNum": 0,
       "advertAble": null,
       "tagList": [],
-      "textDescription": "",
       "pictureMainList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg"
       ],
       "pictureDescriptionList": [
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg",
-        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d38884.jpg"
+        "http://tgshop.oss-cn-shanghai.aliyuncs.com/16a2aa15721/20190812/610570373318184961/16c85d4fd70.jpg"
       ]
     },
     "message": ""
-  },
+  }
 }
