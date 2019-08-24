@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div id="page-container">
         <van-nav-bar
                 title="填写订单"
                 left-arrow
                 @click-left="onNavBackClick"
         />
-        <div class="address-card" >
+        <div class="address-card" id="address-card">
             <van-cell title="北京朝阳红星美凯龙" label="张三丰 18610239332"  is-link />
         </div>
         <div class="order-cell">
@@ -118,14 +118,22 @@
             <van-row class="empty-bottom">
 
             </van-row>
+
+            <van-popup
+                    v-model="popupShow"
+                    round
+                    position="bottom"
+                    :style="{ height: '80%' }"
+            />
+
             <van-submit-bar
                     :price="3050"
                     button-text="提交订单"
                     @submit="onSubmit"
                     :loading="loading"
             >
-                <span slot="tip">
-                    北京朝阳红星美凯龙,
+                <span slot="tip" v-if="showTip">
+                    北京朝阳红星美凯龙
                 </span>
             </van-submit-bar>
         </div>
@@ -134,7 +142,7 @@
 
 <script>
     /* eslint-disable */
-    import { NavBar,Row,Col,Panel,CellGroup, Cell, Icon,Card,Stepper,SubmitBar } from 'vant';
+    import { NavBar,Row,Col,Panel,CellGroup, Cell, Icon,Card,Stepper,SubmitBar,Popup } from 'vant';
 
     export default {
         name: "order_confirm",
@@ -148,13 +156,16 @@
             [Stepper.name]:Stepper,
             [Icon.name]:Icon,
             [SubmitBar.name]:SubmitBar,
+            [Popup.name]:Popup,
             [Cell.name]:Cell
         },
         data () {
             return {
                 singleGoods: false,
                 goodsNum: 1,
-                loading: false
+                loading: false,
+                showTip: false,
+                popupShow: true
             }
         },
         methods:{
@@ -163,7 +174,23 @@
             },
             onGoodsNumChange(val) {
                 console.log("onGoodsNumChange val:"+val)
+            },
+            handleScroll: function () {
+                let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                // 设备/屏幕高度
+                this.showTip = window.scrollY>80
+
+            },
+            onSubmit(){
+                this.loading=true
+                setTimeout( () => {
+                    this.loading=false
+                }, 3000 )
             }
+        },
+        mounted() {
+            // 监听（绑定）滚轮滚动事件
+            window.addEventListener('scroll', this.handleScroll, true);
         }
     }
 </script>
