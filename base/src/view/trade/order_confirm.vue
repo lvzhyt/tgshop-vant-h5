@@ -223,6 +223,14 @@
                 let  address = JSON.parse(orderAddressStr)
                 this.orderAddress = address
             }
+
+            // 购物车 id  sku 数量
+
+            // 是否单sku
+            // 是否立即购买  单sku  购物车为空
+            // sku 列表详情.  店铺 sku 列表
+
+
         }
     }
 </script>
