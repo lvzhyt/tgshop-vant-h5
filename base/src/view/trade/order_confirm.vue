@@ -6,7 +6,10 @@
                 @click-left="onNavBackClick"
         />
         <div class="address-card" id="address-card">
-            <van-cell title="北京朝阳红星美凯龙" label="张三丰 18610239332"  is-link />
+            <van-cell   is-link @click="onClickAddress">
+                <div slot="title">{{orderAddress.address}}</div>
+                <div slot="label"><span>{{orderAddress.name}}</span> <span style="margin-left: 15px;">{{orderAddress.tel}}</span></div>
+            </van-cell>
         </div>
         <div class="order-cell">
             <van-cell title="支付方式" value="在线支付" is-link>
@@ -133,7 +136,7 @@
                     :loading="loading"
             >
                 <span slot="tip" v-if="showTip">
-                    北京朝阳红星美凯龙
+                    {{orderAddress.address}}
                 </span>
             </van-submit-bar>
         </div>
@@ -142,7 +145,8 @@
 
 <script>
     /* eslint-disable */
-    import { NavBar,Row,Col,Panel,CellGroup, Cell, Icon,Card,Stepper,SubmitBar,Popup } from 'vant';
+    import { NavBar,Row,Col,Panel,CellGroup, Cell, Icon,Card,Stepper,SubmitBar,Popup,AddressList } from 'vant';
+    import {setOrderAddress,getOrderAddress} from "../../libs/util";
 
     export default {
         name: "order_confirm",
@@ -157,6 +161,7 @@
             [Icon.name]:Icon,
             [SubmitBar.name]:SubmitBar,
             [Popup.name]:Popup,
+            [AddressList.name]:AddressList,
             [Cell.name]:Cell
         },
         data () {
@@ -165,7 +170,18 @@
                 goodsNum: 1,
                 loading: false,
                 showTip: false,
-                popupShow: true
+                popupShow: false,
+                addressId: '0',
+                addressName: '张三',
+                addressTel: '13000000000',
+                addressAddress: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
+                orderAddress: {
+                    id: '1',
+                    name: '张三',
+                    tel: '13000000000',
+                    address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
+                }
+
             }
         },
         methods:{
@@ -186,11 +202,27 @@
                 setTimeout( () => {
                     this.loading=false
                 }, 3000 )
+            },
+
+            onClickAddress(){
+                let option ={
+                    name: 'address_list',
+                    params: {
+                        addressId: this.orderAddress.id
+                    }
+                }
+                this.$router.push(option)
             }
         },
         mounted() {
             // 监听（绑定）滚轮滚动事件
             window.addEventListener('scroll', this.handleScroll, true);
+            console.log('mounted')
+            let orderAddressStr = getOrderAddress()
+            if(orderAddressStr){
+                let  address = JSON.parse(orderAddressStr)
+                this.orderAddress = address
+            }
         }
     }
 </script>

@@ -93,6 +93,22 @@ const routes = [
       title: '填写订单',
       access: ACCESS_AUTH
     }
+  },
+  {
+    name: 'address_list',
+    component: () => import('./view/trade/address_list'),
+    meta: {
+      title: '地址列表',
+      access: ACCESS_AUTH
+    }
+  },
+  {
+    name: 'add_address',
+    component: () => import('./view/trade/add_address'),
+    meta: {
+      title: '新增地址',
+      access: ACCESS_AUTH
+    }
   }
 ];
 
