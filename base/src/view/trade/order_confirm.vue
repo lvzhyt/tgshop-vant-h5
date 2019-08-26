@@ -22,25 +22,26 @@
 
             <van-panel v-if="singleGoods" class="order-cell">
                 <div slot="header">
-                    <van-cell title="糖果贝贝的店铺"  icon="shop-o" />
+                    <van-cell :title="skuItem.storeName"  icon="shop-o" />
                 </div>
                 <div slot="default">
                     <van-card
                             class="store-goods"
-                            num="2"
-                            price="2.00"
-                            desc="描述信息"
-                            title="商品标题"
-                            thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
+                            :desc="skuItem.specInfo"
+                            :title="skuItem.skuGoodsName"
+                            :thumb="skuItem.specFacePictures"
                     >
+                        <div slot="price">
+                            ¥{{skuItem.salePrice}}
+                        </div>
                         <div slot="num"><van-stepper v-model="goodsNum" @change="onGoodsNumChange" button-size="18px"/></div>
                     </van-card>
                 </div>
                 <div slot="footer">
                     <van-cell title="配送" is-link >
                         <div slot="default">
-                            <van-row>快递运输</van-row>
-                            <van-row>全天</van-row>
+                            <van-row>{{express.expressName}}</van-row>
+                            <van-row>{{express.expressTime}}</van-row>
                         </div>
 <!--                        <div slot="label" class="shipping-time"> 全天-工作时间</div>-->
                         <van-icon class="icon-choose"
@@ -92,7 +93,7 @@
                 </div>
             </van-panel>
             <van-cell-group class="order-cell">
-                <van-cell title="发票" value="不开发票"  is-link >
+                <van-cell title="发票" :value="invoice.title"  is-link >
                     <van-icon class="icon-choose"
                               slot="right-icon"
                               name="ellipsis"
@@ -171,16 +172,45 @@
                 loading: false,
                 showTip: false,
                 popupShow: false,
-                addressId: '0',
-                addressName: '张三',
-                addressTel: '13000000000',
-                addressAddress: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
                 orderAddress: {
                     id: '1',
                     name: '张三',
                     tel: '13000000000',
                     address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-                }
+                },
+                skuItem: {
+                    skuId: '0',
+                    specFacePictures: '',
+                    specInfo: '',
+                    inventoryNum: '1',
+                    storeName: '',
+                    skuGoodsName: ''
+
+                },
+                order: {
+
+                },
+                express: {
+                    expressType: 0,
+                    expressName: '快递运输',
+                    expressTime: '全天'
+                },
+                invoice: {
+                    type: 0,
+                    title: '不开发票',
+
+                },
+                coupon: {
+                  couponId: '0',
+                  couponName: '无可用'
+                },
+                orderItem: [
+                    {
+                        skuId: '0',
+                        num: 1
+                    }
+                ]
+
 
             }
         },
@@ -212,6 +242,10 @@
                     }
                 }
                 this.$router.push(option)
+            },
+            // 获取sku详细信息 价格 库存
+            getSkuDetail(){
+
             }
         },
         mounted() {
@@ -224,6 +258,14 @@
                 this.orderAddress = address
             }
 
+            // 立即购买
+            if(this.$route.params.buyImmediately){
+                this.skuId = this.$route.params.skuId
+                this.singleGoods = true
+                this.getSkuDetail()
+            }else {
+                this.skuId='610570601907752960'
+            }
             // 购物车 id  sku 数量
 
             // 是否单sku

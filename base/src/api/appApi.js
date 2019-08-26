@@ -9,9 +9,17 @@ export const searchGoodsApi = (data) => {
     })
 }
 
-export const getSkuByIdApi = (skuId) => {
+export const getSkuEsByIdApi = (skuId) => {
     return axios.request({
-        url: apiUrl.getSkuByIdUrl,
+        url: apiUrl.getSkuEsByIdUrl,
+        params:{skuId},
+        method:'get'
+    })
+}
+
+export const getSkuDetailByIdApi = (skuId) => {
+    return axios.request({
+        url: apiUrl.getSkuDetailByIdUrl,
         params:{skuId},
         method:'get'
     })

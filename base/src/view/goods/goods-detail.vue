@@ -101,7 +101,7 @@ import {
     NavBar,
     Sku
 } from 'vant';
-import {getSkuByIdApi,getChooseSkuApi} from "../../api/appApi";
+import {getSkuEsByIdApi,getChooseSkuApi} from "../../api/appApi";
 import skuDataDemo from "../../data/skuDataDemo";
 
 export default {
@@ -241,7 +241,7 @@ export default {
           console.log('getSkuDetail',data)
           this.resetSkuItemData(data)
         }else {
-          getSkuByIdApi(this.skuId).then(res=>{
+          getSkuEsByIdApi(this.skuId).then(res=>{
             const {result,data} = res.data
             if(result){
               console.log(this.skuDataCache)
@@ -263,8 +263,18 @@ export default {
       this.initialSku.s2 = data.sizeAttrValId
       console.log("initialSku",this.initialSku)
     },
+    // 立即购买
     onBuyClicked(data) {
       this.$toast('buy:' + JSON.stringify(data));
+      let option ={
+        name: 'order_confirm',
+        params: {
+          skuId: this.skuId,
+          buyImmediately: true
+        }
+      }
+      this.$route.push(option)
+
     },
 
     onAddCartClicked(data) {
